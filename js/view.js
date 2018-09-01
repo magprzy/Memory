@@ -10,20 +10,29 @@ var view = (function () {
 
         renderPieces = function (pieces) {
             var i;
+            clearPieces();
             section = document.getElementById("pieces");
-            for (i = 0; i < pieces.length; i++) {
+            pieces.forEach(function (piece, i) {
                 piece = document.createElement("p");
                 piece.setAttribute("class", "piece");
                 piece.setAttribute("id", i);
+                piece.addEventListener("click", function () {
+                    changeColorAfterClick(i, pieces)
+                });
                 section.appendChild(piece);
-            }
+            })
         },
+        clearPieces = function () {
+            document.getElementById("pieces").innerHTML = "";
 
+
+
+        },
         highlight = function (pieces) {
             showPiecesToGuess(pieces)
-            setTimeout(function () {hidePiecesToGuess(pieces)
-                }, 1000);
-
+            setTimeout(function () {
+                hidePiecesToGuess(pieces)
+            }, 1000);
 
         },
 
@@ -45,13 +54,40 @@ var view = (function () {
                     piece.setAttribute("class", "piece")
                 }
             }
+        },
+        changeColorAfterClick = function (i, pieces) {
+            piece = document.getElementById(i.toString());
+            if (pieces[i].toGuess === true) {
+                //piece = document.getElementById(i.toString());
+                piece.setAttribute("class", "goodPiece");
+                return true;
+            }
+            else {
+                piece.setAttribute('class', 'badPiece');
+
+                setTimeout(function () {
+                    controller.startGame()
+                }, 1000);
+
+            }
+        },
+
+        getIndex = function (u) {
+            var s = u;
+            console.log(s);
+
+
         }
 
 
     return {
         'getInitialNumberOfPieces': getInitialNumberOfPieces,
         'renderPieces': renderPieces,
-        'highlight': highlight
+        'highlight': highlight,
+        'getIndex': getIndex,
+        'changeColorAfterClick': changeColorAfterClick
+
+
     }
 })
 ();
