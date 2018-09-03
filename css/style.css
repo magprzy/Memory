@@ -7,6 +7,7 @@ body {
 div#pieces {
     display: flex;
     flex-wrap: wrap;
+    v
     justify-content: space-around;
     border: green 1px solid;
     width: 50%;
@@ -15,6 +16,7 @@ div#pieces {
 
 .piece {
     flex-direction: row;
+    justify-content: space-around;
     background-color: white;
     border: black 1px solid;
     width:50px;

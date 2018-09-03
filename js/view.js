@@ -3,10 +3,12 @@ var view = (function () {
     var piece,
         section,
 
+        //initialNumberOfPieces = 4,
 
-        getInitialNumberOfPieces = function () {
-            return 4;
-        },
+
+       // getInitialNumberOfPieces = function () {
+           // return initialNumberOfPieces;
+       // },
 
         renderPieces = function (pieces) {
             var i;
@@ -17,14 +19,13 @@ var view = (function () {
                 piece.setAttribute("class", "piece");
                 piece.setAttribute("id", i);
                 piece.addEventListener("click", function () {
-                    changeColorAfterClick(i, pieces)
+                    controller.checkPiece(i, pieces);
                 });
                 section.appendChild(piece);
             })
         },
         clearPieces = function () {
             document.getElementById("pieces").innerHTML = "";
-
 
 
         },
@@ -55,20 +56,20 @@ var view = (function () {
                 }
             }
         },
-        changeColorAfterClick = function (i, pieces) {
-            piece = document.getElementById(i.toString());
-            if (pieces[i].toGuess === true) {
-                //piece = document.getElementById(i.toString());
+
+        changeColor = function (i, goodPiece) {
+            piece = document.getElementById(i);
+            if (goodPiece === true) {
                 piece.setAttribute("class", "goodPiece");
-                return true;
+
+                game.checkIfAllPiecesAreGuessed();
+
             }
             else {
                 piece.setAttribute('class', 'badPiece');
-
                 setTimeout(function () {
                     controller.startGame()
                 }, 1000);
-
             }
         },
 
@@ -81,11 +82,11 @@ var view = (function () {
 
 
     return {
-        'getInitialNumberOfPieces': getInitialNumberOfPieces,
+       // 'getInitialNumberOfPieces': getInitialNumberOfPieces,
         'renderPieces': renderPieces,
         'highlight': highlight,
         'getIndex': getIndex,
-        'changeColorAfterClick': changeColorAfterClick
+        'changeColor': changeColor
 
 
     }

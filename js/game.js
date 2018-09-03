@@ -5,8 +5,10 @@ var game = (function () {
         currentNumberOfPieces,
         numberOfPiecesToHighlight,
         pieces = [],
+        guessedPieces = 0,
 
         startGame = function (config) {
+            clearWindow();
             if (config && config.numberOfPieces) {
                 currentNumberOfPieces = config.numberOfPieces;
             } else {
@@ -14,12 +16,20 @@ var game = (function () {
             }
         },
 
+
         getPieces = function () {
             for (var i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
                 pieces[i].toGuess = false;
             }
             return pieces;
+        },
+
+        getCurrentNumberOfPieces = function () {
+            return {
+                numberOfPieces: currentNumberOfPieces
+            };
+
         },
 
         getNumberOfPiecesToHighlight = function () {
@@ -45,13 +55,56 @@ var game = (function () {
                 }
             }
             return pieces;
-        };
+        },
+        clearWindow = function () {
+            while (pieces.length !== 0) {
+                pieces.pop();
+            }
+        },
+        checkPiece = function (i, pieces) {
+            var piece = document.getElementById(i.toString());
+            if (pieces[i].toGuess === true) {
+                pieces[i].toGuess = false;
+                guessedPieces++;
+                return true;
+            }
+            else {
+                guessedPieces = 0;
+                return false;
+            }
+        },
 
+        checkIfAllPiecesAreGuessed = function () {
+            if (guessedPieces === getNumberOfPiecesToHighlight()) {
+                guessedPieces = 0;
+                currentNumberOfPieces += 2;
+
+                setTimeout(function () {
+                    controller.startGame(
+                        {
+                            numberOfPieces: currentNumberOfPieces
+                        }
+                    )
+                }, 1000);
+
+            }
+
+        },
+
+        addPiece = function () {
+            currentNumberOfPieces += 2;
+
+        }
 
     return {
         'startGame': startGame,
         'getPieces': getPieces,
-        'getPiecesToHighlight': getPiecesToHighlight
+        'getPiecesToHighlight': getPiecesToHighlight,
+        'checkPiece': checkPiece,
+        'checkIfAllPiecesAreGuessed': checkIfAllPiecesAreGuessed,
+        'getNumberOfPiecesToHighlight': getNumberOfPiecesToHighlight,
+        'addPiece': addPiece,
+        'getCurrentNumberOfPieces': getCurrentNumberOfPieces
     }
 })();
 
