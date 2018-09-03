@@ -3,14 +3,7 @@ var view = (function () {
     var piece,
         section,
 
-        //initialNumberOfPieces = 4,
-
-
-       // getInitialNumberOfPieces = function () {
-           // return initialNumberOfPieces;
-       // },
-
-        renderPieces = function (pieces) {
+        renderPieces = function (pieces, checkPieceCallback) {
             var i;
             clearPieces();
             section = document.getElementById("pieces");
@@ -18,9 +11,8 @@ var view = (function () {
                 piece = document.createElement("p");
                 piece.setAttribute("class", "piece");
                 piece.setAttribute("id", i);
-                piece.addEventListener("click", function () {
-                    controller.checkPiece(i, pieces);
-                });
+                piece.addEventListener("click", checkPieceCallback);
+
                 section.appendChild(piece);
             })
         },
@@ -82,7 +74,7 @@ var view = (function () {
 
 
     return {
-       // 'getInitialNumberOfPieces': getInitialNumberOfPieces,
+        // 'getInitialNumberOfPieces': getInitialNumberOfPieces,
         'renderPieces': renderPieces,
         'highlight': highlight,
         'getIndex': getIndex,

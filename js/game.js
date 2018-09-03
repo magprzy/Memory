@@ -61,8 +61,8 @@ var game = (function () {
                 pieces.pop();
             }
         },
-        checkPiece = function (i, pieces) {
-            var piece = document.getElementById(i.toString());
+        checkPiece = function (i) {
+
             if (pieces[i].toGuess === true) {
                 pieces[i].toGuess = false;
                 guessedPieces++;
@@ -75,6 +75,7 @@ var game = (function () {
         },
 
         checkIfAllPiecesAreGuessed = function () {
+
             if (guessedPieces === getNumberOfPiecesToHighlight()) {
                 guessedPieces = 0;
                 currentNumberOfPieces += 2;

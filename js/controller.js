@@ -3,15 +3,16 @@ var controller = (function () {
     var startGame = function (numberOfPiece) {
 
             game.startGame(numberOfPiece);
-            view.renderPieces(game.getPieces());
+            view.renderPieces(game.getPieces(), checkPiece);
             view.highlight(game.getPiecesToHighlight());
         },
         highlight = function () {
             view.highlight(game.getPiecesToHighlight());
         },
 
-        checkPiece = function (i, pieces) {
-            view.changeColor(i, game.checkPiece(i, pieces));
+        checkPiece = function (event) {
+            var id = event.target.id;
+            view.changeColor(id, game.checkPiece(id));
         },
 
         addPiece = function () {
