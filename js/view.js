@@ -2,6 +2,7 @@
 var view = (function () {
     var piece,
         section,
+        site,
 
         renderPieces = function (pieces, checkPieceCallback) {
             var i;
@@ -9,24 +10,20 @@ var view = (function () {
             section = document.getElementById("pieces");
             pieces.forEach(function (piece, i) {
                 piece = document.createElement("p");
-                piece.setAttribute("class", "piece");
-                piece.setAttribute("id", i);
+                piece.className = "piece";
+                piece.id = i;
                 piece.addEventListener("click", checkPieceCallback);
-
                 section.appendChild(piece);
             })
         },
         clearPieces = function () {
             document.getElementById("pieces").innerHTML = "";
-
-
         },
         highlight = function (pieces) {
             showPiecesToGuess(pieces)
             setTimeout(function () {
                 hidePiecesToGuess(pieces)
             }, 1000);
-
         },
 
         showPiecesToGuess = function (pieces) {
@@ -34,9 +31,11 @@ var view = (function () {
             for (i = 0; i < pieces.length; i++) {
                 if (pieces[i].toGuess === true) {
                     piece = document.getElementById(i);
-                    piece.setAttribute("class", "highlightPiece");
+                    piece.className = "piece highlightPiece";
                 }
             }
+            site = document.getElementById("body");
+            site.className = "avoid-clicks";
         },
 
         hidePiecesToGuess = function (pieces) {
@@ -44,40 +43,28 @@ var view = (function () {
             for (i = 0; i < pieces.length; i++) {
                 if (pieces[i].toGuess === true) {
                     piece = document.getElementById(i);
-                    piece.setAttribute("class", "piece")
+                    piece.className = "piece";
                 }
             }
+            site.className = "allow-clicks";
         },
 
         changeColor = function (i, goodPiece) {
             piece = document.getElementById(i);
             if (goodPiece === true) {
-                piece.setAttribute("class", "goodPiece");
-
-                game.checkIfAllPiecesAreGuessed();
-
+                piece.className = "piece goodPiece";
+                return true;
             }
             else {
-                piece.setAttribute('class', 'badPiece');
-                setTimeout(function () {
-                    controller.startGame()
-                }, 1000);
+                piece.className = "piece badPiece";
+                return false;
             }
-        },
-
-        getIndex = function (u) {
-            var s = u;
-            console.log(s);
-
-
         }
 
 
     return {
-        // 'getInitialNumberOfPieces': getInitialNumberOfPieces,
         'renderPieces': renderPieces,
         'highlight': highlight,
-        'getIndex': getIndex,
         'changeColor': changeColor
 
 

@@ -11,8 +11,26 @@ var controller = (function () {
         },
 
         checkPiece = function (event) {
-            var id = event.target.id;
-            view.changeColor(id, game.checkPiece(id));
+            var id = event.target.id,
+                guessedPiece,
+                continueGame;
+
+            guessedPiece = view.changeColor(id, game.pieceToGuess(id));
+
+            if (guessedPiece) {
+                continueGame = game.checkIfAllPiecesAreGuessed();
+                if (continueGame) {
+                    setTimeout(function () {
+                        controller.startGame(game.getCurrentNumberOfPieces()
+                        )
+                    }, 1000);
+                }
+            }
+            else {
+                setTimeout(function () {
+                    controller.startGame()
+                }, 1000);
+            }
         },
 
         addPiece = function () {

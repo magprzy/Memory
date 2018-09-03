@@ -32,7 +32,7 @@ var game = (function () {
 
         },
 
-        getNumberOfPiecesToHighlight = function () {
+        getNumberOfPiecesToGuess = function () {
             numberOfPiecesToHighlight = (currentNumberOfPieces / 2) - 1;
             return numberOfPiecesToHighlight;
         },
@@ -46,7 +46,7 @@ var game = (function () {
             var randomIndex,
                 i = 0;
             clearPiecesToGuess();
-            while (i < getNumberOfPiecesToHighlight()) {
+            while (i < getNumberOfPiecesToGuess()) {
                 randomIndex = Math.floor(Math.random() * currentNumberOfPieces);
 
                 if (pieces[randomIndex].toGuess === false) {
@@ -61,8 +61,7 @@ var game = (function () {
                 pieces.pop();
             }
         },
-        checkPiece = function (i) {
-
+        pieceToGuess = function (i) {
             if (pieces[i].toGuess === true) {
                 pieces[i].toGuess = false;
                 guessedPieces++;
@@ -76,20 +75,11 @@ var game = (function () {
 
         checkIfAllPiecesAreGuessed = function () {
 
-            if (guessedPieces === getNumberOfPiecesToHighlight()) {
+            if (guessedPieces === getNumberOfPiecesToGuess()) {
                 guessedPieces = 0;
                 currentNumberOfPieces += 2;
-
-                setTimeout(function () {
-                    controller.startGame(
-                        {
-                            numberOfPieces: currentNumberOfPieces
-                        }
-                    )
-                }, 1000);
-
+                return true;
             }
-
         },
 
         addPiece = function () {
@@ -101,9 +91,9 @@ var game = (function () {
         'startGame': startGame,
         'getPieces': getPieces,
         'getPiecesToHighlight': getPiecesToHighlight,
-        'checkPiece': checkPiece,
+        'pieceToGuess': pieceToGuess,
         'checkIfAllPiecesAreGuessed': checkIfAllPiecesAreGuessed,
-        'getNumberOfPiecesToHighlight': getNumberOfPiecesToHighlight,
+        'getNumberOfPiecesToGuess': getNumberOfPiecesToGuess,
         'addPiece': addPiece,
         'getCurrentNumberOfPieces': getCurrentNumberOfPieces
     }
