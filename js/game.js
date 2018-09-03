@@ -21,6 +21,7 @@ var game = (function () {
             for (var i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
                 pieces[i].toGuess = false;
+                pieces[i].id = i;
             }
             return pieces;
         },
@@ -61,7 +62,7 @@ var game = (function () {
                 pieces.pop();
             }
         },
-        pieceToGuess = function (i) {
+        guessPiece = function (i) {
             if (pieces[i].toGuess === true) {
                 pieces[i].toGuess = false;
                 guessedPieces++;
@@ -91,7 +92,7 @@ var game = (function () {
         'startGame': startGame,
         'getPieces': getPieces,
         'getPiecesToHighlight': getPiecesToHighlight,
-        'pieceToGuess': pieceToGuess,
+        'guessPiece': guessPiece,
         'checkIfAllPiecesAreGuessed': checkIfAllPiecesAreGuessed,
         'getNumberOfPiecesToGuess': getNumberOfPiecesToGuess,
         'addPiece': addPiece,

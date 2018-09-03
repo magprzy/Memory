@@ -5,6 +5,8 @@ var controller = (function () {
             game.startGame(numberOfPiece);
             view.renderPieces(game.getPieces(), checkPiece);
             view.highlight(game.getPiecesToHighlight());
+            //view.showInformation(game.getNumberOfPiecesToGuess());
+
         },
         highlight = function () {
             view.highlight(game.getPiecesToHighlight());
@@ -15,7 +17,7 @@ var controller = (function () {
                 guessedPiece,
                 continueGame;
 
-            guessedPiece = view.changeColor(id, game.pieceToGuess(id));
+            guessedPiece = view.changeColor(id, game.guessPiece(id));
 
             if (guessedPiece) {
                 continueGame = game.checkIfAllPiecesAreGuessed();
@@ -36,12 +38,17 @@ var controller = (function () {
         addPiece = function () {
             game.addPiece();
             startGame(game.getCurrentNumberOfPieces());
+        },
+
+        showInformation = function () {
+            view.showInformation(game.getNumberOfPiecesToGuess());
         }
 
     return {
         'startGame': startGame,
         'highlight': highlight,
         'checkPiece': checkPiece,
-        'addPiece': addPiece
+        'addPiece': addPiece,
+        'showInformation': showInformation
     }
 })();

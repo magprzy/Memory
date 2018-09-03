@@ -19,14 +19,14 @@ body {
 .button {
 
     border: 3px solid dimgrey;
-    color: dimgrey;
+    color: grey;
     font-family: Calibri, sans-serif;
     letter-spacing: 1px;
-    background-color: whitesmoke;
-    color: dimgrey;
+    background-color: white;
+
     font-size: 1.5em;
     float: left;
-    color: dimgrey;
+
     padding: 12px 28px;
     font-size: 1.5em;
 

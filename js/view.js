@@ -16,6 +16,13 @@ var view = (function () {
                 section.appendChild(piece);
             })
         },
+
+        showInformation = function(numberOfPieces){
+        var information,
+            informationSection = document.getElementById("information");
+            information = document.createTextNode(numberOfPieces + " pieces to  guess!");
+            informationSection.appendChild(information);
+        },
         clearPieces = function () {
             document.getElementById("pieces").innerHTML = "";
         },
@@ -65,7 +72,8 @@ var view = (function () {
     return {
         'renderPieces': renderPieces,
         'highlight': highlight,
-        'changeColor': changeColor
+        'changeColor': changeColor,
+        'showInformation': showInformation
 
 
     }

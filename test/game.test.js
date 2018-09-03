@@ -52,7 +52,7 @@ describe('Game', function () {
         game.startGame(config);
         game.getPieces(game.getCurrentNumberOfPieces());
 
-        result = game.pieceToGuess(1);
+        result = game.guessPiece(1);
 
             expect(result).toBe(false);
 
@@ -73,19 +73,23 @@ describe('Game', function () {
     it('should allow to guess piece only once', function () {
         var result,
             piece,
-            piecesToGuess,
+            piecesToGuess=[],
             config = {
                 numberOfPieces: 10
             };
         game.startGame(config);
         game.getPieces();
         result = game.getPiecesToHighlight();
-        piecesToGuess = result.find(function(piece){
-            return piece.id === 2} );
-       // piece = piecesToGuess[0];
+        for (var i=0 ; i <result.length; i++){
+            if (result[i].toGuess === true){
+                piecesToGuess.push(result[i]);
 
-        game.pieceToGuess(piece.id);
-        expect(result.length).toBe(3);
+            }
+        }
+
+        game.guessPiece(piecesToGuess[0].id);
+
+        expect(piecesToGuess[0].toGuess).toBe(false);
     });
 
 
